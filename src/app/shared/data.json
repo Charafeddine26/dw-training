@@ -1,0 +1,162 @@
+[
+  {
+    "id": 1,
+    "nom": "The Joker",
+    "team": "Injustice League",
+    "nemesis": "Batman",
+    "date_premiere_parution": "1940-04-25",
+    "image": "https://placehold.co/400x600?text=The+Joker"
+  },
+  {
+    "id": 2,
+    "nom": "Lex Luthor",
+    "team": "Legion of Doom",
+    "nemesis": "Superman",
+    "date_premiere_parution": "1940-04-01",
+    "image": "https://placehold.co/400x600?text=Lex+Luthor"
+  },
+  {
+    "id": 3,
+    "nom": "Cheetah",
+    "team": "Legion of Doom",
+    "nemesis": "Wonder Woman",
+    "date_premiere_parution": "1943-10-01",
+    "image": "https://placehold.co/400x600?text=Cheetah"
+  },
+  {
+    "id": 4,
+    "nom": "Reverse-Flash",
+    "team": "Legion of Zoom",
+    "nemesis": "The Flash",
+    "date_premiere_parution": "1963-09-01",
+    "image": "https://placehold.co/400x600?text=Reverse-Flash"
+  },
+  {
+    "id": 5,
+    "nom": "Black Manta",
+    "team": "Legion of Doom",
+    "nemesis": "Aquaman",
+    "date_premiere_parution": "1967-09-01",
+    "image": "https://placehold.co/400x600?text=Black+Manta"
+  },
+  {
+    "id": 6,
+    "nom": "Sinestro",
+    "team": "Sinestro Corps",
+    "nemesis": "Green Lantern",
+    "date_premiere_parution": "1961-08-01",
+    "image": "https://placehold.co/400x600?text=Sinestro"
+  },
+  {
+    "id": 7,
+    "nom": "Darkseid",
+    "team": "New Gods",
+    "nemesis": "Justice League",
+    "date_premiere_parution": "1970-11-01",
+    "image": "https://placehold.co/400x600?text=Darkseid"
+  },
+  {
+    "id": 8,
+    "nom": "Deathstroke",
+    "team": "Suicide Squad",
+    "nemesis": "Teen Titans",
+    "date_premiere_parution": "1980-12-01",
+    "image": "https://placehold.co/400x600?text=Deathstroke"
+  },
+  {
+    "id": 9,
+    "nom": "Harley Quinn",
+    "team": "Suicide Squad",
+    "nemesis": "Batman",
+    "date_premiere_parution": "1992-09-11",
+    "image": "https://placehold.co/400x600?text=Harley+Quinn"
+  },
+  {
+    "id": 10,
+    "nom": "Catwoman",
+    "team": "Gotham City Sirens",
+    "nemesis": "Batman",
+    "date_premiere_parution": "1940-04-25",
+    "image": "https://placehold.co/400x600?text=Catwoman"
+  },
+  {
+    "id": 11,
+    "nom": "The Penguin",
+    "team": "Injustice League",
+    "nemesis": "Batman",
+    "date_premiere_parution": "1941-12-01",
+    "image": "https://placehold.co/400x600?text=The+Penguin"
+  },
+  {
+    "id": 12,
+    "nom": "The Riddler",
+    "team": "Legion of Doom",
+    "nemesis": "Batman",
+    "date_premiere_parution": "1948-10-01",
+    "image": "https://placehold.co/400x600?text=The+Riddler"
+  },
+  {
+    "id": 13,
+    "nom": "Brainiac",
+    "team": null,
+    "nemesis": "Superman",
+    "date_premiere_parution": "1958-07-01",
+    "image": "https://placehold.co/400x600?text=Brainiac"
+  },
+  {
+    "id": 14,
+    "nom": "General Zod",
+    "team": "Kryptonian Military Guild",
+    "nemesis": "Superman",
+    "date_premiere_parution": "1961-04-01",
+    "image": "https://placehold.co/400x600?text=General+Zod"
+  },
+  {
+    "id": 15,
+    "nom": "Captain Cold",
+    "team": "The Rogues",
+    "nemesis": "The Flash",
+    "date_premiere_parution": "1957-06-01",
+    "image": "https://placehold.co/400x600?text=Captain+Cold"
+  },
+  {
+    "id": 16,
+    "nom": "Bane",
+    "team": "Suicide Squad",
+    "nemesis": "Batman",
+    "date_premiere_parution": "1993-01-01",
+    "image": "https://placehold.co/400x600?text=Bane"
+  },
+  {
+    "id": 17,
+    "nom": "Poison Ivy",
+    "team": "Gotham City Sirens",
+    "nemesis": "Batman",
+    "date_premiere_parution": "1966-06-01",
+    "image": "https://placehold.co/400x600?text=Poison+Ivy"
+  },
+  {
+    "id": 18,
+    "nom": "Scarecrow",
+    "team": "Injustice Gang",
+    "nemesis": "Batman",
+    "date_premiere_parution": "1941-09-01",
+    "image": "https://placehold.co/400x600?text=Scarecrow"
+  },
+  {
+    "id": 19,
+    "nom": "Ra's al Ghul",
+    "team": "League of Assassins",
+    "nemesis": "Batman",
+    "date_premiere_parution": "1971-06-01",
+    "image": "https://placehold.co/400x600?text=Ra's+al+Ghul"
+  },
+  {
+    "id": 20,
+    "nom": "Black Adam",
+    "team": "Justice Society of America",
+    "nemesis": "Shazam",
+    "date_premiere_parution": "1945-12-01",
+    "image": "https://placehold.co/400x600?text=Black+Adam"
+  }
+]
