@@ -3,50 +3,99 @@
   display: flex;
   flex-direction: column;
   transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 16px;
+  overflow: hidden;
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   }
 
   .image-container {
     position: relative;
+    height: 300px;
+    overflow: hidden;
     
     img {
       width: 100%;
-      height: 300px;
+      height: 100%;
       object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 50%);
+      pointer-events: none;
     }
 
     .favorite-btn {
       position: absolute;
-      top: 8px;
-      right: 8px;
-      background: rgba(255, 255, 255, 0.8);
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      transition: transform 0.2s;
       
       &:hover {
-        background: rgba(255, 255, 255, 1);
+        background: white;
+        transform: scale(1.1);
       }
+    }
+
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+
+  mat-card-header {
+    padding: 16px 16px 8px;
+    
+    mat-card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
     }
   }
 
   mat-card-content {
-    margin-top: 16px;
+    padding: 0 16px 16px;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(0, 0, 0, 0.7);
+      
+      .info-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        color: rgba(0, 0, 0, 0.54);
+      }
+    }
   }
 
   .labels {
-    margin-top: 8px;
+    margin-top: auto;
+    padding-top: 12px;
     display: flex;
     gap: 4px;
     flex-wrap: wrap;
     
     .label {
-      background: #eee;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 0.8em;
+      background: #e0e0e0;
+      padding: 4px 10px;
+      border-radius: 16px;
+      font-size: 0.75rem;
+      color: rgba(0, 0, 0, 0.87);
+      font-weight: 500;
     }
   }
 }
-

@@ -1,6 +1,7 @@
 <mat-card class="hero-card">
   <div class="image-container">
     <img mat-card-image [src]="hero.image || 'https://placehold.co/400x600?text=No+Image'" [alt]="hero.nom">
+    <div class="overlay"></div>
     <button mat-icon-button class="favorite-btn" (click)="onToggleFavorite($event)" [color]="hero.isFavorite ? 'warn' : ''">
       <mat-icon>{{ hero.isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
     </button>
@@ -10,11 +11,16 @@
     <mat-card-subtitle *ngIf="hero.team">{{ hero.team }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p><strong>Nemesis:</strong> {{ hero.nemesis }}</p>
-    <p><strong>Parution:</strong> {{ hero.date_premiere_parution | date:'longDate' }}</p>
+    <div class="info-row">
+      <mat-icon class="info-icon" title="Nemesis">person_alert</mat-icon>
+      <span>{{ hero.nemesis }}</span>
+    </div>
+    <div class="info-row">
+      <mat-icon class="info-icon" title="Première parution">calendar_today</mat-icon>
+      <span>{{ hero.date_premiere_parution | date:'mediumDate' }}</span>
+    </div>
     <div class="labels" *ngIf="hero.labels?.length">
       <span class="label" *ngFor="let label of hero.labels">{{ label }}</span>
     </div>
   </mat-card-content>
 </mat-card>
-
