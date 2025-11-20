@@ -1,11 +1,10 @@
 export interface Hero {
   id: string;
-  name: string;
+  nom: string;
   nemesis: string;
-  firstAppearance: Date;
+  date_premiere_parution: Date;
   team?: string;
-  imageUrl?: string;
+  image?: string;
   labels?: string[];
   isFavorite?: boolean;
 }
-

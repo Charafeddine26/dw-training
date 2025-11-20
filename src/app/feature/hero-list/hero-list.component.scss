@@ -1,0 +1,32 @@
+.hero-list-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .controls {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .search-field {
+      flex: 1;
+      min-width: 300px;
+    }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 48px;
+    color: #666;
+    font-size: 1.2em;
+  }
+}
+

@@ -1,0 +1,27 @@
+<div class="hero-list-container">
+  <div class="controls">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Find by Nemesis</mat-label>
+      <input matInput [ngModel]="searchTerm$ | async" (ngModelChange)="onSearch($event)" placeholder="e.g. Batman">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-button-toggle-group [ngModel]="showFavoritesOnly$ | async" (ngModelChange)="toggleShowFavorites($event)" aria-label="Filter Favorites">
+      <mat-button-toggle [value]="false">All Heroes</mat-button-toggle>
+      <mat-button-toggle [value]="true">Favorites Only</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <div class="grid">
+    <app-hero-card 
+      *ngFor="let hero of heroes$ | async" 
+      [hero]="hero"
+      (toggleFavorite)="toggleFavorite($event)">
+    </app-hero-card>
+  </div>
+
+  <div *ngIf="(heroes$ | async)?.length === 0" class="no-results">
+    <p>No heroes found matching your criteria.</p>
+  </div>
+</div>
+
