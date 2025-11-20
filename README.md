@@ -1,101 +1,227 @@
-# DwTraining
+# DW Training - Nx Angular Monorepo
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+This is an Nx Monorepo with Angular applications for training exercises.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## 🔧 Core Technology Stack
 
-## Run tasks
+### Framework & Platform
 
-To run the dev server for your app, use:
+- **Angular**: v20.0.6 (latest)
+- **Angular Material**: v20.0.5
+- **RxJS**: v7.8.0
+- **Zone.js**: v0.15.0 (but project uses zoneless mode)
+- **TypeScript**: v5.8.3
+- **Node.js**: 18+ (LTS recommended)
+- **Package Manager**: npm
 
-```sh
+### Build & Development Tools
+
+- **Nx**: v21.2.2 (monorepo management)
+- **Angular CLI**: v20.0.0
+- **Sass/SCSS**: v1.19.0+ for styling
+
+### Testing
+
+- **Jest**: v29.7.0 (NOT Vitest - this project uses Jest!)
+- **Jest Preset Angular**: v14.6.0
+- **@testing-library/angular**: v17.0.0
+- **Test Setup**: Zoneless test environment
+
+### Linting & Formatting
+
+- **ESLint**: v9.8.0
+- **angular-eslint**: v20.0.0
+- **Prettier**: v3.6.0
+
+## 📁 Project Structure
+
+```
+dw-training/
+├── src/
+│   ├── app/
+│   │   ├── core/              # Services, providers, guards
+│   │   ├── feature/           # Feature components
+│   │   ├── shared/            # Shared components, pipes, directives
+│   │   ├── app.ts             # Root component
+│   │   ├── app.config.ts      # Application configuration
+│   │   └── app.routes.ts      # Route definitions
+│   ├── assets/                # Images, static files
+│   ├── environments/
+│   │   ├── environment.ts     # Development environment
+│   │   └── environment.prod.ts # Production environment
+│   ├── index.html             # Main HTML file
+│   ├── main.ts               # Bootstrap file
+│   ├── styles.scss           # Global styles
+│   └── test-setup.ts         # Jest configuration
+├── project.json              # Nx project config
+├── jest.config.ts            # Jest configuration
+├── tsconfig.json             # Base TS config
+├── tsconfig.app.json         # App TS config
+├── tsconfig.spec.json        # Test TS config
+├── eslint.config.mjs         # ESLint config
+├── .prettierrc               # Prettier config
+└── package.json              # Dependencies & scripts
+```
+
+## 🚀 Getting Started
+
+### Installation
+
+```bash
+npm install
+```
+
+### Development Server
+
+```bash
+npm start
+# or
 npx nx serve dw-training
 ```
 
-To create a production bundle:
+Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-```sh
+### Build
+
+```bash
+npm run build
+# or
 npx nx build dw-training
 ```
 
-To see all available targets to run for a project, run:
+Build artifacts will be stored in the `dist/` directory.
 
-```sh
-npx nx show project dw-training
+### Running Tests
+
+```bash
+npm test
+# or
+npx nx test dw-training
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+This project uses **Jest** with zoneless test environment setup.
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Linting
 
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/angular:app demo
+```bash
+npx nx lint dw-training
 ```
 
-To generate a new library, use:
+### Format Code with Prettier
 
-```sh
-npx nx g @nx/angular:lib mylib
+```bash
+npx prettier --write .
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+## 🎯 Key Configuration Details
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### 1. Angular Configuration (Standalone Components)
 
-## Set up CI!
+- Uses standalone components (no NgModules)
+- Zoneless change detection (`provideZonelessChangeDetection()`)
+- Component input binding enabled for routes
+- Material Design prebuilt theme (indigo-pink)
 
-### Step 1
+### 2. TypeScript Configuration
 
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
+```json
+{
+  "target": "es2022",
+  "module": "preserve",
+  "moduleResolution": "bundler",
+  "experimentalDecorators": true,
+  "strictInjectionParameters": true,
+  "strictTemplates": true
+}
 ```
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+### 3. Jest Configuration (NOT Vitest!)
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- Uses `jest-preset-angular`
+- Zoneless test setup (`setupZonelessTestEnv()`)
+- Coverage directory: `coverage/dw-training`
+- Transform for `.ts|.mjs|.js|.html` files
 
-### Step 2
+### 4. ESLint Configuration
 
-Use the following command to configure a CI workflow for your workspace:
+- Component prefix: `app` (customize as needed)
+- Directive selector: camelCase
+- Component selector: kebab-case
+- Prettier integration enabled
 
-```sh
-npx nx g ci-workflow
+### 5. Nx Workspace Settings
+
+- Package Manager: npm
+- Default test runner: Jest
+- Style: SCSS
+- Linter: ESLint
+- Cacheable operations: build, lint, test, e2e
+
+## 📦 Key Features
+
+- **Zoneless Mode**: Uses `provideZonelessChangeDetection()` instead of Zone.js for better performance
+- **Standalone Components**: No NgModules, everything is standalone
+- **Angular Material**: Pre-configured with Material Design components
+- **Testing Library**: Modern testing utilities with Angular Testing Library
+- **SSR Ready**: Server-side rendering enabled with Angular SSR
+- **HTTP Client**: Configured with `provideHttpClient(withFetch())`
+- **Router**: Configured with `withComponentInputBinding()` for component input binding
+
+## 🎨 Angular Material
+
+Angular Material is pre-configured with the `indigo-pink` theme. You can change the theme by modifying the theme import in `project.json`.
+
+Available prebuilt themes:
+- deeppurple-amber.css
+- indigo-pink.css
+- pink-bluegrey.css
+- purple-green.css
+
+## 📚 Useful Commands
+
+### Generate a Component
+
+```bash
+npx nx g @nx/angular:component my-component --project=dw-training
 ```
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Generate a Service
 
-## Install Nx Console
+```bash
+npx nx g @nx/angular:service my-service --project=dw-training
+```
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+### Generate a Pipe
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```bash
+npx nx g @nx/angular:pipe my-pipe --project=dw-training
+```
 
-## Useful links
+### View Project Graph
+
+```bash
+npx nx graph
+```
+
+## ⚠️ Important Notes
+
+- This project uses **JEST, NOT Vitest** - All test configuration is Jest-based
+- **Zoneless mode** - Uses `provideZonelessChangeDetection()` instead of Zone.js
+- **Standalone components** - No NgModules, everything is standalone
+- **Angular 20** - Latest version with all modern features
+- **Nx monorepo** - Great for managing multiple apps/libraries
+
+## 🔗 Useful Links
 
 Learn more:
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [Angular Documentation](https://angular.dev)
+- [Nx Documentation](https://nx.dev)
+- [Angular Material](https://material.angular.io)
+- [Jest Documentation](https://jestjs.io)
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 📄 License
+
+MIT
