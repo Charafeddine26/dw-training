@@ -4,13 +4,14 @@ import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { Hero } from '../../core/models/hero.model';
 import { HeroService } from '../../core/services/hero.service';
 
 @Component({
   selector: 'app-hero-card',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, RouterModule, MatCardModule, MatButtonModule, MatIconModule, MatMenuModule],
   templateUrl: './hero-card.component.html',
   styleUrl: './hero-card.component.scss',
 })

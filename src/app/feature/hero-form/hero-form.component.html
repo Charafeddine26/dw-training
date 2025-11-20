@@ -1,69 +1,87 @@
-<div class="container mx-auto p-4 max-w-2xl">
-  <h2 class="text-2xl font-bold mb-6 text-indigo-800">
-    {{ isEditMode ? 'Edit Hero' : 'Create New Hero' }}
-  </h2>
-
-  <form [formGroup]="heroForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-4">
-
-    <mat-form-field appearance="outline">
-      <mat-label>Hero Name</mat-label>
-      <input matInput formControlName="nom" placeholder="e.g. Spider-Man">
-      <mat-error *ngIf="heroForm.get('nom')?.hasError('required')">
-        Name is required
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Nemesis</mat-label>
-      <input matInput formControlName="nemesis" placeholder="e.g. Green Goblin">
-      <mat-error *ngIf="heroForm.get('nemesis')?.hasError('required')">
-        Nemesis is required
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Team</mat-label>
-      <input matInput formControlName="team" placeholder="e.g. Avengers">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>First Appearance Date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="date_premiere_parution">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-      <mat-error *ngIf="heroForm.get('date_premiere_parution')?.hasError('required')">
-        Date is required
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Image URL</mat-label>
-      <input matInput formControlName="image" placeholder="https://...">
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Labels</mat-label>
-      <mat-chip-grid #chipGrid aria-label="Enter labels">
-        <mat-chip-row *ngFor="let label of heroForm.get('labels')?.value"
-                      (removed)="removeLabel(label)">
-          {{label}}
-          <button matChipRemove [attr.aria-label]="'remove ' + label">
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </mat-chip-row>
-        <input placeholder="New label..."
-               [matChipInputFor]="chipGrid"
-               (matChipInputTokenEnd)="addLabel($event)"/>
-      </mat-chip-grid>
-    </mat-form-field>
-
-    <div class="flex justify-end gap-4 mt-4">
-      <button mat-button type="button" (click)="onCancel()">Cancel</button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="heroForm.invalid">
-        {{ isEditMode ? 'Update Hero' : 'Create Hero' }}
+<div class="form-container">
+  <mat-card class="form-card">
+    <div class="form-header">
+      <button mat-icon-button routerLink="/">
+        <mat-icon>arrow_back</mat-icon>
       </button>
+      <h2>{{ isEditMode ? 'Edit Hero' : 'Create New Hero' }}</h2>
     </div>
 
-  </form>
+    <div class="image-preview" *ngIf="heroForm.get('image')?.value">
+      <img [src]="heroForm.get('image')?.value" alt="Hero Preview" (error)="heroForm.get('image')?.setValue('')">
+      <div class="overlay"></div>
+      <div class="preview-label">Preview</div>
+    </div>
+
+    <form [formGroup]="heroForm" (ngSubmit)="onSubmit()">
+      <mat-card-content>
+        <div class="form-fields">
+          <mat-form-field appearance="outline">
+            <mat-label>Hero Name</mat-label>
+            <mat-icon matPrefix>person</mat-icon>
+            <input matInput formControlName="nom" placeholder="e.g. Spider-Man">
+            <mat-error *ngIf="heroForm.get('nom')?.hasError('required')">
+              Name is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nemesis</mat-label>
+            <mat-icon matPrefix>person_alert</mat-icon>
+            <input matInput formControlName="nemesis" placeholder="e.g. Green Goblin">
+            <mat-error *ngIf="heroForm.get('nemesis')?.hasError('required')">
+              Nemesis is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Team</mat-label>
+            <mat-icon matPrefix>group</mat-icon>
+            <input matInput formControlName="team" placeholder="e.g. Avengers">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>First Appearance Date</mat-label>
+            <mat-icon matPrefix>calendar_today</mat-icon>
+            <input matInput [matDatepicker]="picker" formControlName="date_premiere_parution">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="heroForm.get('date_premiere_parution')?.hasError('required')">
+              Date is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Image URL</mat-label>
+            <mat-icon matPrefix>image</mat-icon>
+            <input matInput formControlName="image" placeholder="https://...">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="chips-field">
+            <mat-label>Labels</mat-label>
+            <mat-chip-grid #chipGrid aria-label="Enter labels">
+              <mat-chip-row *ngFor="let label of heroForm.get('labels')?.value"
+                            (removed)="removeLabel(label)"
+                            class="custom-chip">
+                {{label}}
+                <button matChipRemove [attr.aria-label]="'remove ' + label">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+              <input placeholder="New label..."
+                     [matChipInputFor]="chipGrid"
+                     (matChipInputTokenEnd)="addLabel($event)"/>
+            </mat-chip-grid>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-button type="button" (click)="onCancel()">Cancel</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="heroForm.invalid">
+          {{ isEditMode ? 'Update Hero' : 'Create Hero' }}
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
 </div>

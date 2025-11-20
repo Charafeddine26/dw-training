@@ -2,9 +2,27 @@
   <div class="image-container">
     <img mat-card-image [src]="hero.image || 'https://placehold.co/400x600?text=No+Image'" [alt]="hero.nom">
     <div class="overlay"></div>
-    <button mat-icon-button class="favorite-btn" (click)="onToggleFavorite($event)" [color]="hero.isFavorite ? 'warn' : ''">
-      <mat-icon>{{ hero.isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
-    </button>
+    
+    <div class="card-actions">
+      <button mat-icon-button class="favorite-btn action-btn" (click)="onToggleFavorite($event)" [color]="hero.isFavorite ? 'warn' : ''">
+        <mat-icon>{{ hero.isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
+      </button>
+      
+      <button mat-icon-button class="more-btn action-btn" [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      
+      <mat-menu #menu="matMenu">
+        <a mat-menu-item [routerLink]="['/hero/edit', hero.id]">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </a>
+        <button mat-menu-item (click)="onDelete($event)">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+      </mat-menu>
+    </div>
   </div>
   <mat-card-header>
     <mat-card-title>{{ hero.nom }}</mat-card-title>
@@ -23,14 +41,9 @@
       <div class="labels" *ngIf="hero.labels?.length">
         <span class="label" *ngFor="let label of hero.labels">{{ label }}</span>
       </div>
-      <button mat-icon-button class="add-label-btn" (click)="onAddLabel($event)" title="Add Label">
+      <button mat-icon-button color="primary" class="add-label-btn" (click)="onAddLabel($event)" title="Add Label">
         <mat-icon>add_circle_outline</mat-icon>
       </button>
     </div>
   </mat-card-content>
-
-  <mat-card-actions align="end">
-    <a mat-button color="primary" [routerLink]="['/hero/edit', hero.id]">Edit</a>
-    <button mat-button color="warn" (click)="onDelete($event)">Delete</button>
-  </mat-card-actions>
 </mat-card>

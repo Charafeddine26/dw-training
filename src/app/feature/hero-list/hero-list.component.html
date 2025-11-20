@@ -1,12 +1,5 @@
 <div class="hero-list-container">
 
-  <div class="create-btn-container">
-    <a mat-fab extended color="primary" routerLink="/hero/new">
-      <mat-icon>add</mat-icon>
-      Create New Hero
-    </a>
-  </div>
-
   <div class="controls">
     <mat-form-field appearance="outline" class="search-field" subscriptSizing="dynamic">
       <mat-label>Search (Name, Nemesis, Team)</mat-label>
@@ -68,4 +61,9 @@
   <div *ngIf="(heroes$ | async)?.length === 0" class="no-results">
     <p>No heroes found matching your criteria.</p>
   </div>
+
+  <a mat-fab extended color="primary" class="fab-add" routerLink="/hero/new">
+    <mat-icon>add</mat-icon>
+    <span>Create Hero</span>
+  </a>
 </div>
