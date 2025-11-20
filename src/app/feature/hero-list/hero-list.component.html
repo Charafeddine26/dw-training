@@ -1,4 +1,12 @@
 <div class="hero-list-container">
+
+  <div class="create-btn-container">
+    <a mat-fab extended color="primary" routerLink="/hero/new">
+      <mat-icon>add</mat-icon>
+      Create New Hero
+    </a>
+  </div>
+
   <div class="controls">
     <mat-form-field appearance="outline" class="search-field" subscriptSizing="dynamic">
       <mat-label>Search (Name, Nemesis, Team)</mat-label>
@@ -27,27 +35,25 @@
     </div>
   </div>
 
-  <!-- Standard Grid View -->
-  <div class="grid" *ngIf="!(groupByLabel$ | async)">
-    <app-hero-card 
-      *ngFor="let hero of heroes$ | async" 
+  <div class="grid" *ngIf="(groupByLabel$ | async) === false">
+    <app-hero-card
+      *ngFor="let hero of heroes$ | async"
       [hero]="hero"
       (toggleFavorite)="toggleFavorite($event)"
       (addLabel)="onAddLabel($event)">
     </app-hero-card>
   </div>
 
-  <!-- Grouped View -->
   <div class="grouped-view" *ngIf="groupByLabel$ | async">
     <div *ngFor="let group of groupedHeroes$ | async" class="label-group">
       <h3>
-        <mat-icon>label</mat-icon> 
+        <mat-icon>label</mat-icon>
         {{ group.label }}
         <span class="count">({{ group.heroes.length }})</span>
       </h3>
       <div class="grid">
-        <app-hero-card 
-          *ngFor="let hero of group.heroes" 
+        <app-hero-card
+          *ngFor="let hero of group.heroes"
           [hero]="hero"
           (toggleFavorite)="toggleFavorite($event)"
           (addLabel)="onAddLabel($event)">

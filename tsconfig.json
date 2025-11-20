@@ -9,6 +9,7 @@
     "paths": {},
     "isolatedModules": true,
     "resolveJsonModule": true,
+    "esModuleInterop": true,
     "skipLibCheck": true
   },
   "angularCompilerOptions": {

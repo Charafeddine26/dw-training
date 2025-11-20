@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Hero } from '../models/hero.model';
 import heroesData from '../../shared/data.json';
 
@@ -14,7 +14,7 @@ export class HeroService {
     date_premiere_parution: new Date(h.date_premiere_parution),
     team: h.team || undefined,
     image: h.image,
-    labels: h.team ? [h.team] : [], // Mock initial labels from team for demo
+    labels: h.team ? [h.team] : [],
     isFavorite: false
   }));
 
@@ -24,8 +24,21 @@ export class HeroService {
     return this.heroesSubject.asObservable();
   }
 
-  addHero(hero: Hero): void {
-    this.heroes = [...this.heroes, hero];
+  getHeroById(id: string): Observable<Hero | undefined> {
+    return this.getHeroes().pipe(
+      map(heroes => heroes.find(h => h.id === id))
+    );
+  }
+
+  addHero(hero: Partial<Hero>): void {
+    const newHero: Hero = {
+      ...hero,
+      id: Date.now().toString(), // Simple unique ID
+      labels: hero.labels || [],
+      isFavorite: false
+    } as Hero;
+
+    this.heroes = [...this.heroes, newHero];
     this.heroesSubject.next(this.heroes);
   }
 

@@ -10,6 +10,7 @@ import { Hero } from '../../core/models/hero.model';
 import { HeroService } from '../../core/services/hero.service';
 import { HeroCardComponent } from '../hero-card/hero-card.component';
 import { combineLatest, map, Observable, BehaviorSubject } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 interface HeroGroup {
   label: string;
@@ -26,6 +27,7 @@ interface HeroGroup {
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    RouterModule,
     MatButtonToggleModule,
     HeroCardComponent
   ],
@@ -36,7 +38,7 @@ export class HeroListComponent implements OnInit {
   searchTerm$ = new BehaviorSubject<string>('');
   showFavoritesOnly$ = new BehaviorSubject<boolean>(false);
   groupByLabel$ = new BehaviorSubject<boolean>(false);
-  
+
   heroes$: Observable<Hero[]>;
   groupedHeroes$: Observable<HeroGroup[]>;
 
@@ -49,11 +51,11 @@ export class HeroListComponent implements OnInit {
     ]).pipe(
       map(([heroes, term, showFavorites]) => {
         let filtered = heroes;
-        
+
         // Advanced Search (Name, Nemesis, Team, Labels)
         if (term) {
           const lowerTerm = term.toLowerCase();
-          filtered = filtered.filter(h => 
+          filtered = filtered.filter(h =>
             h.nom.toLowerCase().includes(lowerTerm) ||
             h.nemesis.toLowerCase().includes(lowerTerm) ||
             (h.team && h.team.toLowerCase().includes(lowerTerm)) ||
