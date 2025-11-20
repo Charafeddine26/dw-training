@@ -19,8 +19,13 @@
       <mat-icon class="info-icon" title="Première parution">calendar_today</mat-icon>
       <span>{{ hero.date_premiere_parution | date:'mediumDate' }}</span>
     </div>
-    <div class="labels" *ngIf="hero.labels?.length">
-      <span class="label" *ngFor="let label of hero.labels">{{ label }}</span>
+    <div class="labels-container">
+      <div class="labels" *ngIf="hero.labels?.length">
+        <span class="label" *ngFor="let label of hero.labels">{{ label }}</span>
+      </div>
+      <button mat-icon-button class="add-label-btn" (click)="onAddLabel($event)" title="Add Label">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
     </div>
   </mat-card-content>
 </mat-card>

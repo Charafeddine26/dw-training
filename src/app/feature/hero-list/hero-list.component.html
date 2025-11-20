@@ -1,31 +1,65 @@
 <div class="hero-list-container">
   <div class="controls">
-    <mat-form-field appearance="outline" class="search-field">
-      <mat-label>Find by Nemesis</mat-label>
+    <mat-form-field appearance="outline" class="search-field" subscriptSizing="dynamic">
+      <mat-label>Search (Name, Nemesis, Team)</mat-label>
       <input matInput [ngModel]="searchTerm$ | async" (ngModelChange)="onSearch($event)" placeholder="e.g. Batman">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
 
-    <mat-button-toggle-group [ngModel]="showFavoritesOnly$ | async" (ngModelChange)="toggleShowFavorites($event)" aria-label="Filter Favorites">
-      <mat-button-toggle [value]="false">
-        <mat-icon>list</mat-icon>
-      </mat-button-toggle>
-      <mat-button-toggle [value]="true">
-        <mat-icon>favorite</mat-icon>
-      </mat-button-toggle>
-    </mat-button-toggle-group>
+    <div class="toggles">
+      <mat-button-toggle-group [ngModel]="showFavoritesOnly$ | async" (ngModelChange)="toggleShowFavorites($event)" aria-label="Filter Favorites">
+        <mat-button-toggle [value]="false" title="All Heroes">
+          <mat-icon>list</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="true" title="Favorites Only">
+          <mat-icon>favorite</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <mat-button-toggle-group [ngModel]="groupByLabel$ | async" (ngModelChange)="toggleGroupByLabel($event)" aria-label="Group by Label">
+        <mat-button-toggle [value]="false" title="Grid View">
+          <mat-icon>grid_view</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle [value]="true" title="Group by Label">
+          <mat-icon>category</mat-icon>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
   </div>
 
-  <div class="grid">
+  <!-- Standard Grid View -->
+  <div class="grid" *ngIf="!(groupByLabel$ | async)">
     <app-hero-card 
       *ngFor="let hero of heroes$ | async" 
       [hero]="hero"
-      (toggleFavorite)="toggleFavorite($event)">
+      (toggleFavorite)="toggleFavorite($event)"
+      (addLabel)="onAddLabel($event)">
     </app-hero-card>
+  </div>
+
+  <!-- Grouped View -->
+  <div class="grouped-view" *ngIf="groupByLabel$ | async">
+    <div *ngFor="let group of groupedHeroes$ | async" class="label-group">
+      <h3>
+        <mat-icon>label</mat-icon> 
+        {{ group.label }}
+        <span class="count">({{ group.heroes.length }})</span>
+      </h3>
+      <div class="grid">
+        <app-hero-card 
+          *ngFor="let hero of group.heroes" 
+          [hero]="hero"
+          (toggleFavorite)="toggleFavorite($event)"
+          (addLabel)="onAddLabel($event)">
+        </app-hero-card>
+      </div>
+    </div>
+    <div *ngIf="(groupedHeroes$ | async)?.length === 0" class="no-results">
+      No labeled heroes found.
+    </div>
   </div>
 
   <div *ngIf="(heroes$ | async)?.length === 0" class="no-results">
     <p>No heroes found matching your criteria.</p>
   </div>
 </div>
-

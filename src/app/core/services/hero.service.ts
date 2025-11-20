@@ -14,7 +14,7 @@ export class HeroService {
     date_premiere_parution: new Date(h.date_premiere_parution),
     team: h.team || undefined,
     image: h.image,
-    labels: [],
+    labels: h.team ? [h.team] : [], // Mock initial labels from team for demo
     isFavorite: false
   }));
 
@@ -43,6 +43,16 @@ export class HeroService {
     const hero = this.heroes.find(h => h.id === id);
     if (hero) {
       this.updateHero({ ...hero, isFavorite: !hero.isFavorite });
+    }
+  }
+
+  addLabel(id: string, label: string): void {
+    const hero = this.heroes.find(h => h.id === id);
+    if (hero) {
+      const currentLabels = hero.labels || [];
+      if (!currentLabels.includes(label)) {
+        this.updateHero({ ...hero, labels: [...currentLabels, label] });
+      }
     }
   }
 }

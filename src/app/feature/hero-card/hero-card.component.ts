@@ -15,10 +15,15 @@ import { Hero } from '../../core/models/hero.model';
 export class HeroCardComponent {
   @Input({ required: true }) hero!: Hero;
   @Output() toggleFavorite = new EventEmitter<string>();
+  @Output() addLabel = new EventEmitter<string>();
 
   onToggleFavorite(event: Event): void {
     event.stopPropagation();
     this.toggleFavorite.emit(this.hero.id);
   }
-}
 
+  onAddLabel(event: Event): void {
+    event.stopPropagation();
+    this.addLabel.emit(this.hero.id);
+  }
+}
