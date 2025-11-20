@@ -11,6 +11,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { HeroService } from '../../core/services/hero.service';
 import { Hero } from '../../core/models/hero.model';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-hero-form',
@@ -59,20 +60,22 @@ export class HeroFormComponent implements OnInit {
   }
 
   private loadHero(id: string): void {
-    this.heroService.getHeroById(id).subscribe(hero => {
-      if (hero) {
-        this.heroForm.patchValue({
-          nom: hero.nom,
-          nemesis: hero.nemesis,
-          team: hero.team,
-          date_premiere_parution: hero.date_premiere_parution,
-          image: hero.image,
-          labels: hero.labels || []
-        });
-      } else {
-        this.router.navigate(['/']);
-      }
-    });
+    this.heroService.getHeroById(id)
+      .pipe(take(1))
+      .subscribe(hero => {
+        if (hero) {
+          this.heroForm.patchValue({
+            nom: hero.nom,
+            nemesis: hero.nemesis,
+            team: hero.team,
+            date_premiere_parution: hero.date_premiere_parution,
+            image: hero.image,
+            labels: hero.labels || []
+          });
+        } else {
+          this.router.navigate(['/']);
+        }
+      });
   }
 
   addLabel(event: any): void {
@@ -100,18 +103,19 @@ export class HeroFormComponent implements OnInit {
     const formValue = this.heroForm.value;
 
     if (this.isEditMode && this.id) {
-      // Update
-      const updatedHero: Hero = {
-        ...formValue,
-        id: this.id,
-        isFavorite: false
-      };
-      this.heroService.getHeroById(this.id).subscribe(original => {
-        if (original) {
-          this.heroService.updateHero({ ...original, ...updatedHero });
-          this.router.navigate(['/']);
-        }
-      });
+      this.heroService.getHeroById(this.id)
+        .pipe(take(1))
+        .subscribe(original => {
+          if (original) {
+            const updatedHero: Hero = {
+              ...original,
+              ...formValue
+            };
+
+            this.heroService.updateHero(updatedHero);
+            this.router.navigate(['/']);
+          }
+        });
     } else {
       this.heroService.addHero(formValue);
       this.router.navigate(['/']);
